@@ -20,6 +20,9 @@ G21                                 ; Work in millimetres
 G90                                 ; Send absolute coordinates...
 M83                                 ; ...but relative extruder moves
 
+;Heater Timeout
+M570 S300
+
 ; steps/mm
 M92 X400
 M92 Y400
@@ -35,9 +38,10 @@ M906 I95				; IDLE motor current percentage (100=full)
 M84 S0					; NEVER timeout stepper motors
 M85 S0					; NEVER timeout stepper motors
 
-M201 X2750 Y2750 Z25			; Max acceleration. Tested limits: X10000 Y10000
-M566 X900 Y900				; Max jerk. Tested limits: X3500 Y3500
-M203 X6000 Y6000 Z900			; Max speed. Absolute limits are X6000 Y6000 Z2700.
+;M201 X2750 Y2750 Z25			; Max acceleration. Tested limits: X10000 Y10000 Usable values: X2750 Y2750
+M201 X1450 Y1450 Z25
+M566 X600 Y600				; Max jerk. Tested limits: X3500 Y3500
+M203 X5100 Y5100 Z900			; Max speed. Absolute limits are X6000 Y6000 Z2700.
 
 M574 X1 Y1 Z2 S0	;Endstops.
 M666 X0.00 Y0.00 Z0.00	;Endstop adjustments.
@@ -76,7 +80,8 @@ M906 E1750:1750:1750:1750		; Extruder motor current.
 M92 E968:965:965:965			; steps/mm, first extruder is flexystruder
 M201 E2000:2000:2000:2000		; acceleration
 ;M203 E:50:50:50:50			; speed
-M203 E:2000:2000:2000:2000			; speed - allow fast retraction
+;M203 E:2000:2000:2000:2000		; speed - allow fast retraction
+M203 E:2000:2000:45:2000
 
 ;Extruder Stepper Direction.
 M569 P3 S0
@@ -126,10 +131,10 @@ M563 P5 D3	;Swap drive to accomodate degraded chip.
 
 ;G31 C0.0035 P500 X40.8 Y8.7 Z1.75				;@0C
 
-G31 C0.0035 P500 X-139.2 Y8.7 Z1.325
+G31 C0.0035 P500 X-139.2 Y8.7 Z1.25
 
 G10 P0 R80 S165 X-51.985 Y-0.48 Z0
-G10 P1 R80 S165 X-74 Y-0.65 Z0
+G10 P1 R165 S165 X-74 Y-0.65 Z0
 G10 P2 R80 S165 X-96.15 Y-0.9 Z0
 G10 P3 R80 S165 X-118.45 Y-0.9 Z0
 G10 P4 R-273.15 S-273.15 X-89.1 Y-62.1 Z0
